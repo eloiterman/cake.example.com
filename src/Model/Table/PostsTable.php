@@ -103,6 +103,13 @@ class PostsTable extends Table
         );
     }
 
+    public function beforeMarshal($event, $data)
+{
+    if (!isset($data['slug']) && !empty($data['title'])) {
+        $data['slug'] = $this->createSlug($data['title']);
+    }
+}
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
