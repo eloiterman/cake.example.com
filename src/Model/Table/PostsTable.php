@@ -7,6 +7,9 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+// the Text class
+use Cake\Utility\Text;
+
 
 /**
  * Posts Model
@@ -89,6 +92,15 @@ class PostsTable extends Table
             ->allowEmptyString('body');
 
         return $validator;
+    }
+
+        public function createSlug($title)
+    {
+        return Text::slug(
+            strtolower(
+                substr($title, 0, 191)
+            )
+        );
     }
 
     /**
